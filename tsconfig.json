@@ -1,6 +1,0 @@
-{
-  "compilerOptions": {
-    "target": "esnext",
-    "types": ["vitest/globals"]
-  }
-}

@@ -1,5 +1,3 @@
-globalThis.jest = vi;
-
 const addHook = require("pirates").addHook;
 const removeTypes = require("flow-remove-types");
 const esbuild = require("esbuild");
@@ -161,17 +159,17 @@ const mockScrollView = () => {
 };
 
 const MockNativeMethods = `
-  measure: jest.fn(),
-  measureInWindow: jest.fn(),
-  measureLayout: jest.fn(),
-  setNativeProps: jest.fn(),
-  focus: jest.fn(),
-  blur: jest.fn(),
+  measure: vi.fn(),
+  measureInWindow: vi.fn(),
+  measureLayout: vi.fn(),
+  setNativeProps: vi.fn(),
+  focus: vi.fn(),
+  blur: vi.fn(),
 `;
 
 // TODO
 // there's a __mock__ for it.
-// jest.setMock(
+// vi.setMock(
 //   "react-native/Libraries/vendor/core/ErrorUtils",
 //   require("react-native/Libraries/vendor/core/ErrorUtils")
 // );
@@ -179,24 +177,24 @@ const MockNativeMethods = `
 mock("react-native/Libraries/Core/InitializeCore", () => "{}");
 mock(
   "react-native/Libraries/Core/NativeExceptionsManager",
-  () => "{ __esModule: true, default: { reportException: jest.fn() } }"
+  () => "{ __esModule: true, default: { reportException: vi.fn() } }"
 );
 mock(
   "react-native/Libraries/ReactNative/UIManager",
   () => `{
     AndroidViewPager: {
       Commands: {
-        setPage: jest.fn(),
-        setPageWithoutAnimation: jest.fn(),
+        setPage: vi.fn(),
+        setPageWithoutAnimation: vi.fn(),
       },
     },
-    blur: jest.fn(),
-    createView: jest.fn(),
+    blur: vi.fn(),
+    createView: vi.fn(),
     customBubblingEventTypes: {},
     customDirectEventTypes: {},
-    dispatchViewManagerCommand: jest.fn(),
-    focus: jest.fn(),
-    getViewManagerConfig: jest.fn((name) => {
+    dispatchViewManagerCommand: vi.fn(),
+    focus: vi.fn(),
+    getViewManagerConfig: vi.fn((name) => {
       if (name === "AndroidDrawerLayout") {
         return {
           Constants: {
@@ -207,15 +205,15 @@ mock(
         };
       }
     }),
-    hasViewManagerConfig: jest.fn((name) => {
+    hasViewManagerConfig: vi.fn((name) => {
       return name === "AndroidDrawerLayout";
     }),
-    measure: jest.fn(),
-    manageChildren: jest.fn(),
-    removeSubviewsFromContainerWithID: jest.fn(),
-    replaceExistingNonRootView: jest.fn(),
-    setChildren: jest.fn(),
-    updateView: jest.fn(),
+    measure: vi.fn(),
+    manageChildren: vi.fn(),
+    removeSubviewsFromContainerWithID: vi.fn(),
+    replaceExistingNonRootView: vi.fn(),
+    setChildren: vi.fn(),
+    updateView: vi.fn(),
     AndroidDrawerLayout: {
       Constants: {
         DrawerPosition: {
@@ -245,9 +243,9 @@ mock("react-native/Libraries/Components/TextInput/TextInput", () =>
     "react-native/Libraries/Components/TextInput/TextInput",
     `{
       ${MockNativeMethods}
-      isFocused: jest.fn(),
-      clear: jest.fn(),
-      getNativeRef: jest.fn(),
+      isFocused: vi.fn(),
+      clear: vi.fn(),
+      getNativeRef: vi.fn(),
     }`
   )
 );
@@ -269,19 +267,19 @@ mock(
   () => `{
     __esModule: true,
     default: {
-      addEventListener: jest.fn(),
-      announceForAccessibility: jest.fn(),
-      isAccessibilityServiceEnabled: jest.fn(),
-      isBoldTextEnabled: jest.fn(),
-      isGrayscaleEnabled: jest.fn(),
-      isInvertColorsEnabled: jest.fn(),
-      isReduceMotionEnabled: jest.fn(),
-      prefersCrossFadeTransitions: jest.fn(),
-      isReduceTransparencyEnabled: jest.fn(),
-      isScreenReaderEnabled: jest.fn(() => Promise.resolve(false)),
-      setAccessibilityFocus: jest.fn(),
-      sendAccessibilityEvent: jest.fn(),
-      getRecommendedTimeoutMillis: jest.fn(),
+      addEventListener: vi.fn(),
+      announceForAccessibility: vi.fn(),
+      isAccessibilityServiceEnabled: vi.fn(),
+      isBoldTextEnabled: vi.fn(),
+      isGrayscaleEnabled: vi.fn(),
+      isInvertColorsEnabled: vi.fn(),
+      isReduceMotionEnabled: vi.fn(),
+      prefersCrossFadeTransitions: vi.fn(),
+      isReduceTransparencyEnabled: vi.fn(),
+      isScreenReaderEnabled: vi.fn(() => Promise.resolve(false)),
+      setAccessibilityFocus: vi.fn(),
+      sendAccessibilityEvent: vi.fn(),
+      getRecommendedTimeoutMillis: vi.fn(),
     },
   }`
 );
@@ -289,8 +287,8 @@ mock(
 mock(
   "react-native/Libraries/Components/Clipboard/Clipboard",
   () => `{
-    getString: jest.fn(() => ""),
-    setString: jest.fn(),
+    getString: vi.fn(() => ""),
+    setString: vi.fn(),
   }`
 );
 
@@ -305,16 +303,16 @@ mock("react-native/Libraries/Components/ScrollView/ScrollView", () => {
     "react-native/Libraries/Components/ScrollView/ScrollView",
     `{
       ${MockNativeMethods}
-      getScrollResponder: jest.fn(),
-      getScrollableNode: jest.fn(),
-      getInnerViewNode: jest.fn(),
-      getInnerViewRef: jest.fn(),
-      getNativeScrollRef: jest.fn(),
-      scrollTo: jest.fn(),
-      scrollToEnd: jest.fn(),
-      flashScrollIndicators: jest.fn(),
-      scrollResponderZoomTo: jest.fn(),
-      scrollResponderScrollNativeHandleToKeyboard: jest.fn(),
+      getScrollResponder: vi.fn(),
+      getScrollableNode: vi.fn(),
+      getInnerViewNode: vi.fn(),
+      getInnerViewRef: vi.fn(),
+      getNativeScrollRef: vi.fn(),
+      scrollTo: vi.fn(),
+      scrollToEnd: vi.fn(),
+      flashScrollIndicators: vi.fn(),
+      scrollResponderZoomTo: vi.fn(),
+      scrollResponderScrollNativeHandleToKeyboard: vi.fn(),
     }`
   );
   return `${mockScrollView()}(${component});`;
@@ -336,8 +334,8 @@ mock(
 mock(
   "react-native/Libraries/AppState/AppState",
   () => `{
-    addEventListener: jest.fn(() => ({
-      remove: jest.fn(),
+    addEventListener: vi.fn(() => ({
+      remove: vi.fn(),
     })),
   }`
 );
@@ -345,12 +343,12 @@ mock(
 mock(
   "react-native/Libraries/Linking/Linking",
   () => `{
-    openURL: jest.fn(),
-    canOpenURL: jest.fn(() => Promise.resolve(true)),
-    openSettings: jest.fn(),
-    addEventListener: jest.fn(),
-    getInitialURL: jest.fn(() => Promise.resolve()),
-    sendIntent: jest.fn(),
+    openURL: vi.fn(),
+    canOpenURL: vi.fn(() => Promise.resolve(true)),
+    openSettings: vi.fn(),
+    addEventListener: vi.fn(),
+    getInitialURL: vi.fn(() => Promise.resolve()),
+    sendIntent: vi.fn(),
   }`
 );
 
@@ -358,23 +356,23 @@ mock(
   "react-native/Libraries/BatchedBridge/NativeModules",
   () => `{
     AlertManager: {
-      alertWithArgs: jest.fn(),
+      alertWithArgs: vi.fn(),
     },
     AsyncLocalStorage: {
-      multiGet: jest.fn((keys, callback) =>
+      multiGet: vi.fn((keys, callback) =>
         process.nextTick(() => callback(null, []))
       ),
-      multiSet: jest.fn((entries, callback) =>
+      multiSet: vi.fn((entries, callback) =>
         process.nextTick(() => callback(null))
       ),
-      multiRemove: jest.fn((keys, callback) =>
+      multiRemove: vi.fn((keys, callback) =>
         process.nextTick(() => callback(null))
       ),
-      multiMerge: jest.fn((entries, callback) =>
+      multiMerge: vi.fn((entries, callback) =>
         process.nextTick(() => callback(null))
       ),
-      clear: jest.fn((callback) => process.nextTick(() => callback(null))),
-      getAllKeys: jest.fn((callback) =>
+      clear: vi.fn((callback) => process.nextTick(() => callback(null))),
+      getAllKeys: vi.fn((callback) =>
         process.nextTick(() => callback(null, []))
       ),
     },
@@ -399,28 +397,28 @@ mock(
       },
     },
     DevSettings: {
-      addMenuItem: jest.fn(),
-      reload: jest.fn(),
+      addMenuItem: vi.fn(),
+      reload: vi.fn(),
     },
     ImageLoader: {
-      getSize: jest.fn((url) => Promise.resolve([320, 240])),
-      prefetchImage: jest.fn(),
+      getSize: vi.fn((url) => Promise.resolve([320, 240])),
+      prefetchImage: vi.fn(),
     },
     ImageViewManager: {
-      getSize: jest.fn((uri, success) =>
+      getSize: vi.fn((uri, success) =>
         process.nextTick(() => success(320, 240))
       ),
-      prefetchImage: jest.fn(),
+      prefetchImage: vi.fn(),
     },
     KeyboardObserver: {
-      addListener: jest.fn(),
-      removeListeners: jest.fn(),
+      addListener: vi.fn(),
+      removeListeners: vi.fn(),
     },
     Networking: {
-      sendRequest: jest.fn(),
-      abortRequest: jest.fn(),
-      addListener: jest.fn(),
-      removeListeners: jest.fn(),
+      sendRequest: vi.fn(),
+      abortRequest: vi.fn(),
+      addListener: vi.fn(),
+      removeListeners: vi.fn(),
     },
     PlatformConstants: {
       getConstants() {
@@ -428,34 +426,34 @@ mock(
       },
     },
     PushNotificationManager: {
-      presentLocalNotification: jest.fn(),
-      scheduleLocalNotification: jest.fn(),
-      cancelAllLocalNotifications: jest.fn(),
-      removeAllDeliveredNotifications: jest.fn(),
-      getDeliveredNotifications: jest.fn((callback) =>
+      presentLocalNotification: vi.fn(),
+      scheduleLocalNotification: vi.fn(),
+      cancelAllLocalNotifications: vi.fn(),
+      removeAllDeliveredNotifications: vi.fn(),
+      getDeliveredNotifications: vi.fn((callback) =>
         process.nextTick(() => [])
       ),
-      removeDeliveredNotifications: jest.fn(),
-      setApplicationIconBadgeNumber: jest.fn(),
-      getApplicationIconBadgeNumber: jest.fn((callback) =>
+      removeDeliveredNotifications: vi.fn(),
+      setApplicationIconBadgeNumber: vi.fn(),
+      getApplicationIconBadgeNumber: vi.fn((callback) =>
         process.nextTick(() => callback(0))
       ),
-      cancelLocalNotifications: jest.fn(),
-      getScheduledLocalNotifications: jest.fn((callback) =>
+      cancelLocalNotifications: vi.fn(),
+      getScheduledLocalNotifications: vi.fn((callback) =>
         process.nextTick(() => callback())
       ),
-      requestPermissions: jest.fn(() =>
+      requestPermissions: vi.fn(() =>
         Promise.resolve({ alert: true, badge: true, sound: true })
       ),
-      abandonPermissions: jest.fn(),
-      checkPermissions: jest.fn((callback) =>
+      abandonPermissions: vi.fn(),
+      checkPermissions: vi.fn((callback) =>
         process.nextTick(() =>
           callback({ alert: true, badge: true, sound: true })
         )
       ),
-      getInitialNotification: jest.fn(() => Promise.resolve(null)),
-      addListener: jest.fn(),
-      removeListeners: jest.fn(),
+      getInitialNotification: vi.fn(() => Promise.resolve(null)),
+      addListener: vi.fn(),
+      removeListeners: vi.fn(),
     },
     SourceCode: {
       getConstants() {
@@ -465,43 +463,43 @@ mock(
       },
     },
     StatusBarManager: {
-      setColor: jest.fn(),
-      setStyle: jest.fn(),
-      setHidden: jest.fn(),
-      setNetworkActivityIndicatorVisible: jest.fn(),
-      setBackgroundColor: jest.fn(),
-      setTranslucent: jest.fn(),
+      setColor: vi.fn(),
+      setStyle: vi.fn(),
+      setHidden: vi.fn(),
+      setNetworkActivityIndicatorVisible: vi.fn(),
+      setBackgroundColor: vi.fn(),
+      setTranslucent: vi.fn(),
       getConstants: () => ({
         HEIGHT: 42,
       }),
     },
     Timing: {
-      createTimer: jest.fn(),
-      deleteTimer: jest.fn(),
+      createTimer: vi.fn(),
+      deleteTimer: vi.fn(),
     },
     UIManager: {},
     BlobModule: {
       getConstants: () => ({ BLOB_URI_SCHEME: "content", BLOB_URI_HOST: null }),
-      addNetworkingHandler: jest.fn(),
-      enableBlobSupport: jest.fn(),
-      disableBlobSupport: jest.fn(),
-      createFromParts: jest.fn(),
-      sendBlob: jest.fn(),
-      release: jest.fn(),
+      addNetworkingHandler: vi.fn(),
+      enableBlobSupport: vi.fn(),
+      disableBlobSupport: vi.fn(),
+      createFromParts: vi.fn(),
+      sendBlob: vi.fn(),
+      release: vi.fn(),
     },
     WebSocketModule: {
-      connect: jest.fn(),
-      send: jest.fn(),
-      sendBinary: jest.fn(),
-      ping: jest.fn(),
-      close: jest.fn(),
-      addListener: jest.fn(),
-      removeListeners: jest.fn(),
+      connect: vi.fn(),
+      send: vi.fn(),
+      sendBinary: vi.fn(),
+      ping: vi.fn(),
+      close: vi.fn(),
+      addListener: vi.fn(),
+      removeListeners: vi.fn(),
     },
     I18nManager: {
-      allowRTL: jest.fn(),
-      forceRTL: jest.fn(),
-      swapLeftAndRightInRTL: jest.fn(),
+      allowRTL: vi.fn(),
+      forceRTL: vi.fn(),
+      swapLeftAndRightInRTL: vi.fn(),
       getConstants: () => ({
         isRTL: false,
         doLeftAndRightSwapInRTL: true,
@@ -513,15 +511,15 @@ mock(
 mock(
   "react-native/Libraries/NativeComponent/NativeComponentRegistry",
   () => `{
-    get: jest.fn((name, viewConfigProvider) => {
+    get: vi.fn((name, viewConfigProvider) => {
       const requireNativeComponent = require("react-native/Libraries/ReactNative/requireNativeComponent");
       return requireNativeComponent(name);
     }),
-    getWithFallback_DEPRECATED: jest.fn((name, viewConfigProvider) => {
+    getWithFallback_DEPRECATED: vi.fn((name, viewConfigProvider) => {
       const requireNativeComponent = require("react-native/Libraries/ReactNative/requireNativeComponent");
       return requireNativeComponent(name);
     }),
-    setRuntimeConfigProvider: jest.fn(),
+    setRuntimeConfigProvider: vi.fn(),
   }`
 );
 
@@ -537,12 +535,12 @@ mock(
       }
 
       // The methods that exist on host components
-      blur = jest.fn();
-      focus = jest.fn();
-      measure = jest.fn();
-      measureInWindow = jest.fn();
-      measureLayout = jest.fn();
-      setNativeProps = jest.fn();
+      blur = vi.fn();
+      focus = vi.fn();
+      measure = vi.fn();
+      measureInWindow = vi.fn();
+      measureLayout = vi.fn();
+      setNativeProps = vi.fn();
     };
 
     if (viewName === 'RCTView') {
@@ -562,8 +560,8 @@ mock(
 mock(
   "react-native/Libraries/Vibration/Vibration",
   () => `{
-    vibrate: jest.fn(),
-    cancel: jest.fn(),
+    vibrate: vi.fn(),
+    cancel: vi.fn(),
   }`
 );
 mock(

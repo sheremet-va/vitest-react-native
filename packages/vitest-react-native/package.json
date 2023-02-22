@@ -1,0 +1,30 @@
+{
+  "name": "vitest-react-native",
+  "version": "0.0.1",
+  "description": "Support for running React Native inside Vitest",
+  "main": "plugin.js",
+  "scripts": {
+    "test": "vitest"
+  },
+  "author": "Vladimir Sheremet",
+  "files": [
+    "plugin.js",
+    "setup.js"
+  ],
+  "exports": {
+    ".": "./plugin.js",
+    "./setup": "./setup.js"
+  },
+  "license": "ISC",
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
+  },
+  "dependencies": {
+    "@bunchtogether/vite-plugin-flow": "^1.0.2",
+    "esbuild": "^0.17.10",
+    "flow-remove-types": "^2.200.0",
+    "pirates": "^4.0.5",
+    "regenerator-runtime": "^0.13.11"
+  }
+}
