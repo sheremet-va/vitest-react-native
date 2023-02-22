@@ -8,10 +8,10 @@ const mocked = [];
 // TODO: better check
 const getMocked = (path) => mocked.find(([p]) => path.includes(p));
 
-addHook(
-  (code, filename) => {
-    const result = removeTypes(code).toString();
-    const newCode = esbuild
+const transformCode = (code) => {
+  const result = removeTypes(code).toString();
+  return (
+    esbuild
       .transformSync(result, {
         loader: "jsx",
         format: "cjs",
@@ -19,13 +19,16 @@ addHook(
       })
       // TODO: how to improve this? add every platform by hand?
       .code.replace(/Utilities\/Platform/g, "Utilities/Platform.ios")
-      .replace(/\/BaseViewConfig/g, "/BaseViewConfig.ios");
+      .replace(/\/BaseViewConfig/g, "/BaseViewConfig.ios")
+  );
+};
 
-    // TODO: don't process code before if there is no __vitest__original__
+addHook(
+  (code, filename) => {
     const mock = getMocked(filename);
     if (mock) {
       const original = `const __vitest__original__ = ((module, exports) => {
-        ${newCode}
+        ${transformCode(code)}
         return module.exports
       })(module, exports);`;
       const mockCode = `
@@ -34,7 +37,7 @@ addHook(
       `;
       return mockCode;
     }
-    return newCode;
+    return transformCode(code);
   },
   {
     exts: [".js"],
