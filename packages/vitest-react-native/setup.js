@@ -6,21 +6,45 @@ const mocked = [];
 // TODO: better check
 const getMocked = (path) => mocked.find(([p]) => path.includes(p));
 
+const crossPlatformFiles = [
+  "Settings",
+  "BaseViewConfig",
+  "RCTAlertManager",
+  "PlatformColorValueTypes",
+  "PlatformColorValueTypesIOS",
+  "PlatformColorValueTypesIOS",
+  "RCTNetworking",
+  "Image",
+  "Platform",
+  "LoadingView",
+  "LoadingView",
+  "BackHandler",
+  "ProgressViewIOS",
+  "ProgressBarAndroid",
+  "legacySendAccessibilityEvent",
+  "DatePickerIOS",
+  "DatePickerIOS.flow",
+  "DrawerLayoutAndroid",
+  "ToastAndroid",
+];
+
+const platformRegexp = new RegExp(
+  // processed code always has " as quotes
+  `require\\("([\\w.\\d\/]+/(${crossPlatformFiles.join("|")}))"\\)`,
+  "g"
+);
+
 // we need to process react-native dependency, because they ship flow types
 // removing types is not enough, we also need to convert ESM imports/exports into CJS
 const transformCode = (code) => {
   const result = removeTypes(code).toString();
-  return (
-    esbuild
-      .transformSync(result, {
-        loader: "jsx",
-        format: "cjs",
-        platform: "node",
-      })
-      // TODO: how to improve this? add every platform import by hand?
-      .code.replace(/Utilities\/Platform/g, "Utilities/Platform.ios")
-      .replace(/\/BaseViewConfig/g, "/BaseViewConfig.ios")
-  );
+  return esbuild
+    .transformSync(result, {
+      loader: "jsx",
+      format: "cjs",
+      platform: "node",
+    })
+    .code.replace(platformRegexp, 'require("$1.ios")');
 };
 
 addHook(
