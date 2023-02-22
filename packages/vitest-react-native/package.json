@@ -1,6 +1,6 @@
 {
   "name": "vitest-react-native",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Support for running React Native inside Vitest",
   "main": "plugin.js",
   "scripts": {
@@ -27,7 +27,6 @@
     "esbuild": "^0.17.10",
     "flow-remove-types": "^2.200.0",
     "pirates": "^4.0.5",
-    "vite": "^4.1.4",
     "regenerator-runtime": "^0.13.11"
   }
 }
