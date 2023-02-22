@@ -25,12 +25,14 @@ addHook(
   (code, filename) => {
     const mock = getMocked(filename);
     if (mock) {
-      const original = `const __vitest__original__ = ((module, exports) => {
+      const original = mock[1].includes("__vitest__original__")
+        ? `const __vitest__original__ = ((module, exports) => {
         ${transformCode(code)}
         return module.exports
-      })(module, exports);`;
+      })(module, exports);`
+        : "";
       const mockCode = `
-      ${mock[1].includes("__vitest__original__") ? original : ""}
+      ${original}
       ${mock[1]}
       `;
       return mockCode;
