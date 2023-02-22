@@ -6,14 +6,13 @@
 To add support for `react-native` to Vitest, you need to install this plugin and add it to your Vitest configuration file.
 
 ```shell
+# with npm
 npm install vitest-react-native -D
-```
 
-```shell
+# with yarn
 yarn add vitest-react-native -D
-```
 
-```shell
+# with pnpm
 pnpm add vitest-react-native -D
 ```
 
