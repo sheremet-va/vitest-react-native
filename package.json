@@ -1,0 +1,27 @@
+{
+  "name": "rn",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "vitest"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@bunchtogether/vite-plugin-flow": "^1.0.2",
+    "@vitejs/plugin-react": "^3.1.0",
+    "esbuild": "^0.17.10",
+    "flow-remove-types": "^2.200.0",
+    "pirates": "^4.0.5",
+    "react": "18.2.0",
+    "react-native": "^0.71.3",
+    "react-native-web": "0.18.2",
+    "react-test-renderer": "^18.2.0",
+    "regenerator-runtime": "^0.13.11",
+    "vitest": "^0.28.5"
+  },
+  "devDependencies": {
+    "@testing-library/react-native": "^12.0.0-rc.0"
+  }
+}
