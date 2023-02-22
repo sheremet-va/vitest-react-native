@@ -6,6 +6,8 @@ const mocked = [];
 // TODO: better check
 const getMocked = (path) => mocked.find(([p]) => path.includes(p));
 
+// we need to process react-native dependency, because they ship flow types
+// removing types is not enough, we also need to convert ESM imports/exports into CJS
 const transformCode = (code) => {
   const result = removeTypes(code).toString();
   return (
@@ -15,7 +17,7 @@ const transformCode = (code) => {
         format: "cjs",
         platform: "node",
       })
-      // TODO: how to improve this? add every platform by hand?
+      // TODO: how to improve this? add every platform import by hand?
       .code.replace(/Utilities\/Platform/g, "Utilities/Platform.ios")
       .replace(/\/BaseViewConfig/g, "/BaseViewConfig.ios")
   );
@@ -45,6 +47,8 @@ addHook(
     matcher: (path) => path.includes("/node_modules/react-native/"),
   }
 );
+
+// adapted from https://github.com/facebook/react-native/blob/main/jest/setup.js
 
 require("@react-native/polyfills/Object.es8");
 // require("@react-native/polyfills/error-guard");
@@ -297,7 +301,7 @@ mock(
 mock(
   "react-native/Libraries/Components/RefreshControl/RefreshControl",
   () =>
-    `__vitest_require_actual__("react-native/Libraries/Components/RefreshControl/__mocks__/RefreshControlMock")`
+    `require("react-native/Libraries/Components/RefreshControl/__mocks__/RefreshControlMock")`
 );
 
 mock("react-native/Libraries/Components/ScrollView/ScrollView", () => {
@@ -568,7 +572,7 @@ mock(
 );
 mock(
   "react-native/Libraries/Components/View/ViewNativeComponent",
-  () => `{
+  () => `(() => {
     const React = require("react");
     const Component = class extends React.Component {
       render() {
@@ -582,5 +586,5 @@ mock(
       __esModule: true,
       default: Component,
     };
-  }`
+  })()`
 );
