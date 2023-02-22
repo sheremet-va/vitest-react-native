@@ -9,7 +9,8 @@
   "author": "Vladimir Sheremet",
   "files": [
     "plugin.js",
-    "setup.js"
+    "setup.js",
+    "*.d.ts"
   ],
   "exports": {
     ".": "./plugin.js",
@@ -18,6 +19,7 @@
   "license": "ISC",
   "peerDependencies": {
     "react": "*",
+    "vite": "*",
     "react-native": "*"
   },
   "dependencies": {
@@ -25,6 +27,7 @@
     "esbuild": "^0.17.10",
     "flow-remove-types": "^2.200.0",
     "pirates": "^4.0.5",
+    "vite": "^4.1.4",
     "regenerator-runtime": "^0.13.11"
   }
 }
