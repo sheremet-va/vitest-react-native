@@ -3,7 +3,8 @@
   "private": true,
   "version": "0.0.1",
   "scripts": {
-    "test": "vitest"
+    "test": "vitest",
+    "release": "pnpm -r publish --access public"
   },
   "devDependencies": {
     "react-native-web": "0.18.2",
