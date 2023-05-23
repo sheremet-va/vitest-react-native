@@ -555,32 +555,37 @@ mock(
 
 mock(
   "react-native/Libraries/ReactNative/requireNativeComponent",
-  () => `viewName => {
+  () => `(() => {
     const React = require('react')
-    const Component = class extends React.Component {
-      _nativeTag = nativeTag++;
 
-      render() {
-        return React.createElement(viewName, this.props, this.props.children);
+    let nativeTag = 1
+
+    return viewName => {
+      const Component = class extends React.Component {
+        _nativeTag = nativeTag++;
+
+        render() {
+          return React.createElement(viewName, this.props, this.props.children);
+        }
+
+        // The methods that exist on host components
+        blur = vi.fn();
+        focus = vi.fn();
+        measure = vi.fn();
+        measureInWindow = vi.fn();
+        measureLayout = vi.fn();
+        setNativeProps = vi.fn();
+      };
+
+      if (viewName === 'RCTView') {
+        Component.displayName = 'View';
+      } else {
+        Component.displayName = viewName;
       }
 
-      // The methods that exist on host components
-      blur = vi.fn();
-      focus = vi.fn();
-      measure = vi.fn();
-      measureInWindow = vi.fn();
-      measureLayout = vi.fn();
-      setNativeProps = vi.fn();
+      return Component;
     };
-
-    if (viewName === 'RCTView') {
-      Component.displayName = 'View';
-    } else {
-      Component.displayName = viewName;
-    }
-
-    return Component;
-  };`
+  })()`
 );
 
 mock(

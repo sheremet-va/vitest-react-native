@@ -1,0 +1,61 @@
+// Vitest Snapshot v1
+
+exports[`native components render correctly 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "backgroundColor": "#f7f8fa",
+      "flexDirection": "row",
+      "paddingBottom": 15,
+      "paddingHorizontal": 15,
+      "paddingTop": 10,
+    }
+  }
+>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    hitSlop={10}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      [
+        {
+          "opacity": 0.8,
+        },
+        false,
+      ]
+    }
+  >
+    </test/assets/trashIcon.svg
+      height={20}
+    />
+  </View>
+</View>
+`;
