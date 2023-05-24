@@ -159,7 +159,9 @@ const mockComponent = (moduleName, instanceMethods, isESModule = false) => {
 };
 
 const mockModal = () => {
-  return `((BaseComponent) => class ModalMock extends BaseComponent {
+  return `((BaseComponent) => {
+    const React = require('react')
+    ${transformCode(`class ModalMock extends BaseComponent {
     render() {
       return (
         <BaseComponent {...this.props}>
@@ -167,16 +169,19 @@ const mockModal = () => {
         </BaseComponent>
       );
     }
-  }
-  return ModalMock;})
+  }`)}
+  return ModalMock;
+})
   `;
 };
 
 const mockScrollView = () => {
-  return `(BaseComponent) => {
+  return `((BaseComponent) => {
     const requireNativeComponent = require("react-native/Libraries/ReactNative/requireNativeComponent");
     const RCTScrollView = requireNativeComponent('RCTScrollView');
-    return class ScrollViewMock extends BaseComponent {
+    const React = require('react')
+    const View = require('react-native/Libraries/Components/View/View')
+    return ${transformCode(`class ScrollViewMock extends BaseComponent {
       render() {
         return (
           <RCTScrollView {...this.props}>
@@ -185,6 +190,7 @@ const mockScrollView = () => {
           </RCTScrollView>
         );
       }
+    }`)}
     })`;
 };
 

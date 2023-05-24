@@ -1,0 +1,11 @@
+// Vitest Snapshot v1
+
+exports[`scroll view components render correctly 1`] = `
+<RCTScrollView>
+  <View>
+    <Text>
+      Hello, world!
+    </Text>
+  </View>
+</RCTScrollView>
+`;

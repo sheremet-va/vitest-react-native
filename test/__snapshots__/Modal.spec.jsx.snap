@@ -1,0 +1,12 @@
+// Vitest Snapshot v1
+
+exports[`scroll view components render correctly 1`] = `
+<Modal
+  hardwareAccelerated={false}
+  visible={true}
+>
+  <Text>
+    Hello, world!
+  </Text>
+</Modal>
+`;
