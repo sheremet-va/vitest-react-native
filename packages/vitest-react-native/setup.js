@@ -4,12 +4,22 @@ const esbuild = require("esbuild");
 const fs = require('fs')
 const os = require('os')
 const path = require('path')
+const reactNativePkg = require('react-native/package.json')
 
 const tmpDir = os.tmpdir()
-const cacheDir = path.join(tmpDir, 'vitest-react-native')
+const cacheDirBase = path.join(tmpDir, 'vrn')
+const cacheDir = path.join(cacheDirBase, reactNativePkg.version)
 if (!fs.existsSync(cacheDir)) {
   fs.mkdirSync(cacheDir, { recursive: true })
 }
+const cacheDirFolders = fs.readdirSync(cacheDirBase)
+cacheDirFolders.forEach(version => {
+  if (version !== reactNativePkg.version) {
+    fs.rmdirSync(path.join(cacheDirBase, version))
+  }
+})
+
+const root = process.cwd()
 
 const mocked = [];
 // TODO: better check
@@ -61,7 +71,7 @@ const readFromCache = (cachePath) => fs.readFileSync(cachePath, 'utf-8')
 const writeToCache = (cachePath, code) => fs.writeFileSync(cachePath, code)
 
 const processReactNative = (code, filename) => {
-  const cacheName = filename.replace(/\//g, '_')
+  const cacheName = path.relative(root, filename).replace(/\//g, '_')
   const cachePath = path.join(cacheDir, cacheName)
   if (cacheExists(cachePath))
     return readFromCache(cachePath, 'utf-8')
