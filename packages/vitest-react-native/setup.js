@@ -1,6 +1,15 @@
 const addHook = require("pirates").addHook;
 const removeTypes = require("flow-remove-types");
 const esbuild = require("esbuild");
+const fs = require('fs')
+const os = require('os')
+const path = require('path')
+
+const tmpDir = os.tmpdir()
+const cacheDir = path.join(tmpDir, 'vitest-react-native')
+if (!fs.existsSync(cacheDir)) {
+  fs.mkdirSync(cacheDir, { recursive: true })
+}
 
 const mocked = [];
 // TODO: better check
@@ -47,28 +56,46 @@ const transformCode = (code) => {
     .code.replace(platformRegexp, 'require("$1.ios")');
 };
 
+const cacheExists = (cachePath) => fs.existsSync(cachePath)
+const readFromCache = (cachePath) => fs.readFileSync(cachePath, 'utf-8')
+const writeToCache = (cachePath, code) => fs.writeFileSync(cachePath, code)
+
+const processReactNative = (code, filename) => {
+  const cacheName = filename.replace(/\//g, '_')
+  const cachePath = path.join(cacheDir, cacheName)
+  if (cacheExists(cachePath))
+    return readFromCache(cachePath, 'utf-8')
+  const mock = getMocked(filename);
+  if (mock) {
+    const original = mock[1].includes("__vitest__original__")
+      ? `const __vitest__original__ = ((module, exports) => {
+      ${transformCode(code)}
+      return module.exports
+    })(module, exports);`
+      : "";
+    const mockCode = `
+    ${original}
+    ${mock[1]}
+    `;
+    writeToCache(cachePath, mockCode)
+    return mockCode;
+  }
+  const transformed = transformCode(code);
+  writeToCache(cachePath, transformed)
+  return transformed
+}
+
 addHook(
   (code, filename) => {
-    const mock = getMocked(filename);
-    if (mock) {
-      const original = mock[1].includes("__vitest__original__")
-        ? `const __vitest__original__ = ((module, exports) => {
-        ${transformCode(code)}
-        return module.exports
-      })(module, exports);`
-        : "";
-      const mockCode = `
-      ${original}
-      ${mock[1]}
-      `;
-      return mockCode;
-    }
-    return transformCode(code);
+    return processReactNative(code, filename)
   },
   {
     exts: [".js"],
     ignoreNodeModules: false,
-    matcher: (path) => path.includes("/node_modules/react-native/"),
+    matcher: (path) =>
+      path.includes("/node_modules/react-native/")
+      // renderer doesn't have jsx inside and it's too big to process
+      && !path.includes('Renderer/implementations'),
   }
 );
 
@@ -191,7 +218,7 @@ const mockScrollView = () => {
         );
       }
     }`)}
-    })`;
+  })`;
 };
 
 const MockNativeMethods = `
