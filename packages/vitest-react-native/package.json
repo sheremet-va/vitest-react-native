@@ -1,6 +1,6 @@
 {
   "name": "vitest-react-native",
-  "version": "0.0.6",
+  "version": "0.1.0",
   "description": "Support for running React Native inside Vitest",
   "main": "plugin.js",
   "scripts": {
