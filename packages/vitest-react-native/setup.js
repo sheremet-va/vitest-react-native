@@ -5,16 +5,19 @@ const fs = require('fs')
 const os = require('os')
 const path = require('path')
 const reactNativePkg = require('react-native/package.json')
+const pluginPkg = require('./package.json')
 
 const tmpDir = os.tmpdir()
 const cacheDirBase = path.join(tmpDir, 'vrn')
-const cacheDir = path.join(cacheDirBase, reactNativePkg.version)
+const version = reactNativePkg.version + pluginPkg.version
+const cacheDir = path.join(cacheDirBase, version)
 if (!fs.existsSync(cacheDir)) {
   fs.mkdirSync(cacheDir, { recursive: true })
 }
 const cacheDirFolders = fs.readdirSync(cacheDirBase)
 cacheDirFolders.forEach(version => {
-  if (version !== reactNativePkg.version) {
+  // remove old cache
+  if (version !== version) {
     fs.rmdirSync(path.join(cacheDirBase, version))
   }
 })
@@ -66,12 +69,14 @@ const transformCode = (code) => {
     .code.replace(platformRegexp, 'require("$1.ios")');
 };
 
+const normalize = (path) => path.replace(/\\/g, "/");
+
 const cacheExists = (cachePath) => fs.existsSync(cachePath)
 const readFromCache = (cachePath) => fs.readFileSync(cachePath, 'utf-8')
 const writeToCache = (cachePath, code) => fs.writeFileSync(cachePath, code)
 
 const processReactNative = (code, filename) => {
-  const cacheName = path.relative(root, filename).replace(/\//g, '_')
+  const cacheName = normalize(path.relative(root, filename)).replace(/\//g, '_')
   const cachePath = path.join(cacheDir, cacheName)
   if (cacheExists(cachePath))
     return readFromCache(cachePath, 'utf-8')
@@ -102,10 +107,15 @@ addHook(
   {
     exts: [".js"],
     ignoreNodeModules: false,
-    matcher: (path) =>
-      path.includes("/node_modules/react-native/")
-      // renderer doesn't have jsx inside and it's too big to process
-      && !path.includes('Renderer/implementations'),
+    matcher: (id) => {
+      const path = normalize(id)
+      return (
+        (path.includes("/node_modules/react-native/")
+        || path.includes("/node_modules/@react-native/"))
+        // renderer doesn't have jsx inside and it's too big to process
+        && !path.includes('Renderer/implementations')
+      )
+    }
   }
 );
 
@@ -114,20 +124,46 @@ addHook(
 require("@react-native/polyfills/Object.es8");
 // require("@react-native/polyfills/error-guard");
 
-globalThis.__DEV__ = true;
-
-// const { default: P } = await import("promise");
-globalThis.Promise = Promise;
-globalThis.window = globalThis;
-
-globalThis.requestAnimationFrame = function (callback) {
-  return setTimeout(callback, 0);
-};
-globalThis.cancelAnimationFrame = function (id) {
-  clearTimeout(id);
-};
-
-globalThis.regeneratorRuntime = require("regenerator-runtime/runtime");
+Object.defineProperties(globalThis, {
+  __DEV__: {
+    configurable: true,
+    enumerable: true,
+    value: true,
+    writable: true,
+  },
+  cancelAnimationFrame: {
+    configurable: true,
+    enumerable: true,
+    value: id => clearTimeout(id),
+    writable: true,
+  },
+  performance: {
+    configurable: true,
+    enumerable: true,
+    value: {
+      now: vi.fn(Date.now),
+    },
+    writable: true,
+  },
+  regeneratorRuntime: {
+    configurable: true,
+    enumerable: true,
+    value: require('regenerator-runtime/runtime'),
+    writable: true,
+  },
+  requestAnimationFrame: {
+    configurable: true,
+    enumerable: true,
+    value: callback => setTimeout(() => callback(vi.getRealSystemTime()), 0),
+    writable: true,
+  },
+  window: {
+    configurable: true,
+    enumerable: true,
+    value: global,
+    writable: true,
+  },
+})
 
 const mock = (path, mock) => {
   if (typeof mock !== "function") {
@@ -138,7 +174,7 @@ const mock = (path, mock) => {
   mocked.push([path, `module.exports = ${mock()}`]);
 };
 
-const mockComponent = (moduleName, instanceMethods, isESModule = false) => {
+const mockComponent = (moduleName, instanceMethods, isESModule = false, customSetup = '') => {
   return `(() => {const RealComponent = ${isESModule}
     ? __vitest__original__.default
     : __vitest__original__;
@@ -191,6 +227,8 @@ const mockComponent = (moduleName, instanceMethods, isESModule = false) => {
       : ""
   }
 
+  ${customSetup}
+
   return Component;
 })()`;
 };
@@ -240,17 +278,19 @@ const MockNativeMethods = `
   blur: vi.fn(),
 `;
 
-// TODO
-// there's a __mock__ for it.
-// vi.setMock(
-//   "react-native/Libraries/vendor/core/ErrorUtils",
-//   require("react-native/Libraries/vendor/core/ErrorUtils")
-// );
-
 mock("react-native/Libraries/Core/InitializeCore", () => "{}");
 mock(
   "react-native/Libraries/Core/NativeExceptionsManager",
-  () => "{ __esModule: true, default: { reportException: vi.fn() } }"
+  () => `{
+    __esModule: true,
+    default: {
+      reportfatalexception: vi.fn(),
+      reportSoftException: vi.fn(),
+      updateExceptionMessage: vi.fn(),
+      dismissRedbox: vi.fn(),
+      reportException: vi.fn(),
+    }
+  }`
 );
 mock(
   "react-native/Libraries/ReactNative/UIManager",
@@ -305,9 +345,16 @@ mock(
     },
   }`
 );
-mock("react-native/Libraries/Image/Image", () =>
-  mockComponent("react-native/Libraries/Image/Image")
-);
+mock("react-native/Libraries/Image/Image", () => {
+  return mockComponent("react-native/Libraries/Image/Image", '', false, `
+  Component.getSize = vi.fn();
+  Component.getSizeWithHeaders = vi.fn();
+  Component.prefetch = vi.fn();
+  Component.prefetchWithMetadata = vi.fn();
+  Component.queryCache = vi.fn();
+  Component.resolveAssetSource = vi.fn();
+  `)
+});
 mock("react-native/Libraries/Text/Text", () =>
   mockComponent("react-native/Libraries/Text/Text", `{ ${MockNativeMethods} }`)
 );

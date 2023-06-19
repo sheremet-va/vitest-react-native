@@ -7,12 +7,15 @@
     "release": "pnpm -r publish --access public"
   },
   "devDependencies": {
+    "@rneui/base": "4.0.0-rc.7",
     "@testing-library/react-native": "12.0.0-rc.0",
     "@vitejs/plugin-react": "^3.1.0",
     "react": "18.2.0",
     "react-native": "^0.71.3",
+    "react-native-svg": "^13.9.0",
     "react-native-web": "0.18.2",
     "react-test-renderer": "^18.2.0",
-    "vitest": "^0.28.5"
+    "vitest": "^0.31.4",
+    "vite": "^4.3.9"
   }
 }
