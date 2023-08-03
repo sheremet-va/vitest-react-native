@@ -6,7 +6,6 @@ const os = require('os')
 const path = require('path')
 const reactNativePkg = require('react-native/package.json')
 const pluginPkg = require('./package.json')
-const { isArrayBuffer } = require("util/types")
 
 const tmpDir = os.tmpdir()
 const cacheDirBase = path.join(tmpDir, 'vrn')
