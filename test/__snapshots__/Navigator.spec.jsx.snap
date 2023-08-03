@@ -1,0 +1,752 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`navigator renders correctly 1`] = `
+<RNCSafeAreaProvider
+  onInsetsChange={[Function]}
+  style={
+    [
+      {
+        "flex": 1,
+      },
+      undefined,
+    ]
+  }
+>
+  <View
+    enabled={true}
+    hasTwoStates={true}
+    style={
+      {
+        "flex": 1,
+        "overflow": "hidden",
+      }
+    }
+  >
+    <View
+      collapsable={false}
+      hidden={false}
+      style={
+        [
+          {
+            "bottom": 0,
+            "left": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+            "zIndex": 0,
+          },
+          {
+            "display": "flex",
+          },
+        ]
+      }
+    >
+      <View
+        accessibilityElementsHidden={false}
+        importantForAccessibility="auto"
+        style={
+          [
+            {
+              "backgroundColor": "rgb(242, 242, 242)",
+              "flex": 1,
+            },
+            [
+              {
+                "flex": 1,
+                "flexDirection": "column-reverse",
+              },
+              undefined,
+            ],
+          ]
+        }
+      >
+        <View
+          style={
+            {
+              "flex": 1,
+            }
+          }
+        >
+          <View
+            style={
+              [
+                {
+                  "flex": 1,
+                },
+                undefined,
+              ]
+            }
+          >
+            <View
+              style={
+                {
+                  "flex": 1,
+                }
+              }
+            >
+              <View
+                accessibilityElementsHidden={false}
+                importantForAccessibility="auto"
+                style={
+                  [
+                    {
+                      "backgroundColor": "rgb(242, 242, 242)",
+                      "flex": 1,
+                    },
+                    [
+                      {
+                        "flex": 1,
+                        "flexDirection": "column-reverse",
+                      },
+                      [
+                        {
+                          "bottom": 0,
+                          "left": 0,
+                          "position": "absolute",
+                          "right": 0,
+                          "top": 0,
+                        },
+                        {
+                          "display": "flex",
+                        },
+                        null,
+                      ],
+                    ],
+                  ]
+                }
+              >
+                <View
+                  style={
+                    {
+                      "flex": 1,
+                    }
+                  }
+                >
+                  <View
+                    style={
+                      [
+                        {
+                          "flex": 1,
+                        },
+                        undefined,
+                      ]
+                    }
+                  >
+                    <View>
+                      <Text>
+                        Card 1
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+                <View
+                  onLayout={[Function]}
+                  style={null}
+                >
+                  <View
+                    collapsable={false}
+                    pointerEvents="box-none"
+                    style={
+                      {
+                        "bottom": 0,
+                        "left": 0,
+                        "position": "absolute",
+                        "right": 0,
+                        "top": 0,
+                        "zIndex": 0,
+                      }
+                    }
+                  >
+                    <View
+                      collapsable={false}
+                      style={
+                        {
+                          "backgroundColor": "rgb(255, 255, 255)",
+                          "borderBottomColor": "rgb(216, 216, 216)",
+                          "flex": 1,
+                          "shadowColor": "rgb(216, 216, 216)",
+                          "shadowOffset": {
+                            "height": 0.5,
+                            "width": 0,
+                          },
+                          "shadowOpacity": 0.85,
+                          "shadowRadius": 0,
+                        }
+                      }
+                    />
+                  </View>
+                  <View
+                    collapsable={false}
+                    pointerEvents="box-none"
+                    style={
+                      {
+                        "height": 44,
+                        "maxHeight": undefined,
+                        "minHeight": undefined,
+                        "opacity": undefined,
+                        "transform": undefined,
+                      }
+                    }
+                  >
+                    <View
+                      pointerEvents="none"
+                      style={
+                        {
+                          "height": 0,
+                        }
+                      }
+                    />
+                    <View
+                      pointerEvents="box-none"
+                      style={
+                        {
+                          "alignItems": "stretch",
+                          "flex": 1,
+                          "flexDirection": "row",
+                        }
+                      }
+                    >
+                      <View
+                        collapsable={false}
+                        pointerEvents="box-none"
+                        style={
+                          {
+                            "alignItems": "flex-start",
+                            "flexBasis": 0,
+                            "flexGrow": 1,
+                            "justifyContent": "center",
+                            "marginStart": 0,
+                          }
+                        }
+                      />
+                      <View
+                        collapsable={false}
+                        pointerEvents="box-none"
+                        style={
+                          {
+                            "justifyContent": "center",
+                            "marginHorizontal": 16,
+                            "maxWidth": 718,
+                          }
+                        }
+                      >
+                        <Text
+                          accessibilityRole="header"
+                          aria-level="1"
+                          collapsable={false}
+                          numberOfLines={1}
+                          style={
+                            {
+                              "color": "rgb(28, 28, 30)",
+                              "fontSize": 17,
+                              "fontWeight": "600",
+                            }
+                          }
+                        >
+                          Card1
+                        </Text>
+                      </View>
+                      <View
+                        collapsable={false}
+                        pointerEvents="box-none"
+                        style={
+                          {
+                            "alignItems": "flex-end",
+                            "flexBasis": 0,
+                            "flexGrow": 1,
+                            "justifyContent": "center",
+                            "marginEnd": 0,
+                          }
+                        }
+                      />
+                    </View>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View
+          onLayout={[Function]}
+          style={null}
+        >
+          <View
+            collapsable={false}
+            pointerEvents="box-none"
+            style={
+              {
+                "bottom": 0,
+                "left": 0,
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+                "zIndex": 0,
+              }
+            }
+          >
+            <View
+              collapsable={false}
+              style={
+                {
+                  "backgroundColor": "rgb(255, 255, 255)",
+                  "borderBottomColor": "rgb(216, 216, 216)",
+                  "flex": 1,
+                  "shadowColor": "rgb(216, 216, 216)",
+                  "shadowOffset": {
+                    "height": 0.5,
+                    "width": 0,
+                  },
+                  "shadowOpacity": 0.85,
+                  "shadowRadius": 0,
+                }
+              }
+            />
+          </View>
+          <View
+            collapsable={false}
+            pointerEvents="box-none"
+            style={
+              {
+                "height": 44,
+                "maxHeight": undefined,
+                "minHeight": undefined,
+                "opacity": undefined,
+                "transform": undefined,
+              }
+            }
+          >
+            <View
+              pointerEvents="none"
+              style={
+                {
+                  "height": 0,
+                }
+              }
+            />
+            <View
+              pointerEvents="box-none"
+              style={
+                {
+                  "alignItems": "stretch",
+                  "flex": 1,
+                  "flexDirection": "row",
+                }
+              }
+            >
+              <View
+                collapsable={false}
+                pointerEvents="box-none"
+                style={
+                  {
+                    "alignItems": "flex-start",
+                    "flexBasis": 0,
+                    "flexGrow": 1,
+                    "justifyContent": "center",
+                    "marginStart": 0,
+                  }
+                }
+              />
+              <View
+                collapsable={false}
+                pointerEvents="box-none"
+                style={
+                  {
+                    "justifyContent": "center",
+                    "marginHorizontal": 16,
+                    "maxWidth": 718,
+                  }
+                }
+              >
+                <Text
+                  accessibilityRole="header"
+                  aria-level="1"
+                  collapsable={false}
+                  numberOfLines={1}
+                  style={
+                    {
+                      "color": "rgb(28, 28, 30)",
+                      "fontSize": 17,
+                      "fontWeight": "600",
+                    }
+                  }
+                >
+                  Home
+                </Text>
+              </View>
+              <View
+                collapsable={false}
+                pointerEvents="box-none"
+                style={
+                  {
+                    "alignItems": "flex-end",
+                    "flexBasis": 0,
+                    "flexGrow": 1,
+                    "justifyContent": "center",
+                    "marginEnd": 0,
+                  }
+                }
+              />
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>
+  <View
+    collapsable={false}
+    onLayout={[Function]}
+    pointerEvents="auto"
+    style={
+      {
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderTopColor": "rgb(216, 216, 216)",
+        "borderTopWidth": 0.5,
+        "bottom": 0,
+        "elevation": 8,
+        "height": 49,
+        "left": 0,
+        "paddingBottom": 0,
+        "paddingHorizontal": 0,
+        "position": null,
+        "right": 0,
+        "transform": [
+          {
+            "translateY": 0,
+          },
+        ],
+      }
+    }
+  >
+    <View
+      pointerEvents="none"
+      style={
+        {
+          "bottom": 0,
+          "left": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+        }
+      }
+    />
+    <View
+      accessibilityRole="tablist"
+      style={
+        {
+          "flex": 1,
+          "flexDirection": "row",
+        }
+      }
+    >
+      <View
+        accessibilityLabel="Home, tab, 1 of 2"
+        accessibilityRole="button"
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": true,
+          }
+        }
+        accessibilityStates={
+          [
+            "selected",
+          ]
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          [
+            {
+              "alignItems": "center",
+              "flex": 1,
+            },
+            {
+              "backgroundColor": "transparent",
+            },
+            {
+              "flexDirection": "column",
+              "justifyContent": "flex-end",
+            },
+            undefined,
+          ]
+        }
+      >
+        <View
+          style={
+            [
+              {
+                "flex": 1,
+              },
+              undefined,
+            ]
+          }
+        >
+          <View
+            style={
+              [
+                {
+                  "alignItems": "center",
+                  "alignSelf": "center",
+                  "height": "100%",
+                  "justifyContent": "center",
+                  "minWidth": 25,
+                  "position": "absolute",
+                  "width": "100%",
+                },
+                {
+                  "opacity": 1,
+                },
+              ]
+            }
+          >
+            <Text
+              style={
+                [
+                  {
+                    "backgroundColor": "transparent",
+                  },
+                  {
+                    "color": "rgb(0, 122, 255)",
+                    "fontSize": 25,
+                  },
+                  undefined,
+                ]
+              }
+            >
+              ⏷
+            </Text>
+          </View>
+          <View
+            style={
+              [
+                {
+                  "alignItems": "center",
+                  "alignSelf": "center",
+                  "height": "100%",
+                  "justifyContent": "center",
+                  "minWidth": 25,
+                  "position": "absolute",
+                  "width": "100%",
+                },
+                {
+                  "opacity": 0,
+                },
+              ]
+            }
+          >
+            <Text
+              style={
+                [
+                  {
+                    "backgroundColor": "transparent",
+                  },
+                  {
+                    "color": "#8E8E8F",
+                    "fontSize": 25,
+                  },
+                  undefined,
+                ]
+              }
+            >
+              ⏷
+            </Text>
+          </View>
+        </View>
+        <Text
+          numberOfLines={1}
+          style={
+            [
+              {
+                "backgroundColor": "transparent",
+                "textAlign": "center",
+              },
+              {
+                "color": "rgb(0, 122, 255)",
+              },
+              {
+                "fontSize": 10,
+              },
+              undefined,
+            ]
+          }
+        >
+          Home
+        </Text>
+      </View>
+      <View
+        accessibilityLabel="Profile, tab, 2 of 2"
+        accessibilityRole="button"
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": false,
+          }
+        }
+        accessibilityStates={[]}
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          [
+            {
+              "alignItems": "center",
+              "flex": 1,
+            },
+            {
+              "backgroundColor": "transparent",
+            },
+            {
+              "flexDirection": "column",
+              "justifyContent": "flex-end",
+            },
+            undefined,
+          ]
+        }
+      >
+        <View
+          style={
+            [
+              {
+                "flex": 1,
+              },
+              undefined,
+            ]
+          }
+        >
+          <View
+            style={
+              [
+                {
+                  "alignItems": "center",
+                  "alignSelf": "center",
+                  "height": "100%",
+                  "justifyContent": "center",
+                  "minWidth": 25,
+                  "position": "absolute",
+                  "width": "100%",
+                },
+                {
+                  "opacity": 0,
+                },
+              ]
+            }
+          >
+            <Text
+              style={
+                [
+                  {
+                    "backgroundColor": "transparent",
+                  },
+                  {
+                    "color": "rgb(0, 122, 255)",
+                    "fontSize": 25,
+                  },
+                  undefined,
+                ]
+              }
+            >
+              ⏷
+            </Text>
+          </View>
+          <View
+            style={
+              [
+                {
+                  "alignItems": "center",
+                  "alignSelf": "center",
+                  "height": "100%",
+                  "justifyContent": "center",
+                  "minWidth": 25,
+                  "position": "absolute",
+                  "width": "100%",
+                },
+                {
+                  "opacity": 1,
+                },
+              ]
+            }
+          >
+            <Text
+              style={
+                [
+                  {
+                    "backgroundColor": "transparent",
+                  },
+                  {
+                    "color": "#8E8E8F",
+                    "fontSize": 25,
+                  },
+                  undefined,
+                ]
+              }
+            >
+              ⏷
+            </Text>
+          </View>
+        </View>
+        <Text
+          numberOfLines={1}
+          style={
+            [
+              {
+                "backgroundColor": "transparent",
+                "textAlign": "center",
+              },
+              {
+                "color": "#8E8E8F",
+              },
+              {
+                "fontSize": 10,
+              },
+              undefined,
+            ]
+          }
+        >
+          Profile
+        </Text>
+      </View>
+    </View>
+  </View>
+</RNCSafeAreaProvider>
+`;

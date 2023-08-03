@@ -6,6 +6,7 @@ const os = require('os')
 const path = require('path')
 const reactNativePkg = require('react-native/package.json')
 const pluginPkg = require('./package.json')
+const { isArrayBuffer } = require("util/types")
 
 const tmpDir = os.tmpdir()
 const cacheDirBase = path.join(tmpDir, 'vrn')
@@ -74,6 +75,22 @@ const normalize = (path) => path.replace(/\\/g, "/");
 const cacheExists = (cachePath) => fs.existsSync(cachePath)
 const readFromCache = (cachePath) => fs.readFileSync(cachePath, 'utf-8')
 const writeToCache = (cachePath, code) => fs.writeFileSync(cachePath, code)
+
+const processBinary = (code, filename) => {
+  const b64 = Buffer.from(code).toString('base64')
+  return `Buffer.from("${b64}")`
+}
+
+addHook(
+  (code, filename) => {
+    return processBinary(code, filename)
+  },
+  {
+    exts: [".png", ".jpg"],
+    ignoreNodeModules: false,
+    matcher: () => true
+  }
+)
 
 const processReactNative = (code, filename) => {
   const cacheName = normalize(path.relative(root, filename)).replace(/\//g, '_')
