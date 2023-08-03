@@ -77,7 +77,7 @@ const writeToCache = (cachePath, code) => fs.writeFileSync(cachePath, code)
 
 const processBinary = (code, filename) => {
   const b64 = Buffer.from(code).toString('base64')
-  return `Buffer.from("${b64}", "base64")`
+  return `module.exports = Buffer.from("${b64}", "base64")`
 }
 
 addHook(
