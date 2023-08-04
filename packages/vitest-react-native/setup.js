@@ -86,8 +86,7 @@ addHook(
   },
   {
     exts: [".png", ".jpg"],
-    ignoreNodeModules: false,
-    matcher: () => true
+    ignoreNodeModules: false
   }
 )
 
