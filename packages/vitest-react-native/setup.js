@@ -75,6 +75,21 @@ const cacheExists = (cachePath) => fs.existsSync(cachePath)
 const readFromCache = (cachePath) => fs.readFileSync(cachePath, 'utf-8')
 const writeToCache = (cachePath, code) => fs.writeFileSync(cachePath, code)
 
+const processBinary = (code, filename) => {
+  const b64 = Buffer.from(code).toString('base64')
+  return `module.exports = Buffer.from("${b64}", "base64")`
+}
+
+addHook(
+  (code, filename) => {
+    return processBinary(code, filename)
+  },
+  {
+    exts: [".png", ".jpg"],
+    ignoreNodeModules: false
+  }
+)
+
 const processReactNative = (code, filename) => {
   const cacheName = normalize(path.relative(root, filename)).replace(/\//g, '_')
   const cachePath = path.join(cacheDir, cacheName)
