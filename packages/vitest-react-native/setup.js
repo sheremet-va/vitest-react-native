@@ -90,6 +90,8 @@ addHook(
   }
 )
 
+require.extensions['.ios.js'] = require.extensions['.js']
+
 const processReactNative = (code, filename) => {
   const cacheName = normalize(path.relative(root, filename)).replace(/\//g, '_')
   const cachePath = path.join(cacheDir, cacheName)
