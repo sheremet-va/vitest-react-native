@@ -23,6 +23,7 @@
     "react-native": "*"
   },
   "dependencies": {
+    "@react-native/polyfills": "^2.0.0",
     "@bunchtogether/vite-plugin-flow": "^1.0.2",
     "esbuild": "^0.17.10",
     "flow-remove-types": "^2.200.0",
