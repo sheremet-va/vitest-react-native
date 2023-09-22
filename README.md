@@ -49,6 +49,11 @@ export default defineConfig({
     setupFiles: ["vitest-react-native/setup"],
     // this is required for this plugin to work
     globals: true,
+    server: {
+      deps: {
+        external: ["react-native"],
+      },
+    },
   },
 });
 ```
