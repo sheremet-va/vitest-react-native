@@ -25,6 +25,11 @@ module.exports = () => {
         test: {
           setupFiles: [resolve(__dirname, "setup.js")],
           globals: true,
+          server: {
+            deps: {
+              external: ["react-native"],
+            },
+          },
         },
       };
     },

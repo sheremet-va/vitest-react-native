@@ -66,7 +66,7 @@ const transformCode = (code) => {
       format: "cjs",
       platform: "node",
     })
-    .code.replace(platformRegexp, 'require("$1.ios")');
+    .code;
 };
 
 const normalize = (path) => path.replace(/\\/g, "/");
@@ -122,7 +122,7 @@ addHook(
     return processReactNative(code, filename)
   },
   {
-    exts: [".js"],
+    exts: [".js", ".ios.js"],
     ignoreNodeModules: false,
     matcher: (id) => {
       const path = normalize(id)
