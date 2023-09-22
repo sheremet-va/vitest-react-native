@@ -51,7 +51,7 @@ export default defineConfig({
     globals: true,
     server: {
       deps: {
-          external: ["react-native"],
+        external: ["react-native"],
       },
     },
   },
