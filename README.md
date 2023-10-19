@@ -16,6 +16,9 @@ yarn add vitest-react-native -D
 
 # with pnpm
 pnpm add vitest-react-native -D
+
+# with bun
+bun add vitest-react-native -D
 ```
 
 ## Usage
@@ -29,31 +32,5 @@ import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   plugins: [reactNative(), react()],
-});
-```
-
-Instead of using a plugin, you can also add a "setup" file yourself:
-
-```js
-// vitest.config.mjs
-import react from "@vitejs/plugin-react";
-import { defineConfig } from "vitest/config";
-
-export default defineConfig({
-  plugins: [react()],
-  resolve: {
-    // plugin adds this condition automatically
-    conditions: ["react-native"],
-  },
-  test: {
-    setupFiles: ["vitest-react-native/setup"],
-    // this is required for this plugin to work
-    globals: true,
-    server: {
-      deps: {
-        external: ["react-native"],
-      },
-    },
-  },
 });
 ```
