@@ -162,6 +162,14 @@ Object.defineProperties(globalThis, {
     value: require('regenerator-runtime/runtime'),
     writable: true,
   },
+  ensureNativeMethodsAreSynced: {
+    configurable: true,
+    enumerable: true,
+    value: {
+      now: vi.fn(),
+    },
+    writable: true,
+  },
   requestAnimationFrame: {
     configurable: true,
     enumerable: true,
